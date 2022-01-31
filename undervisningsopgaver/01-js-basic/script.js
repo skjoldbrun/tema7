@@ -1,5 +1,14 @@
-let længde = 3;
-let bredde = 5;
+let længde = 50;
+let bredde = 2;
 let areal = længde * bredde;
-let resultat = `Længden er ${længde} meter og bredden er ${bredde} meter. Arealet er ${areal}`;
+let resultat;
+
+if (areal < 100) {
+  resultat = "Arealet er for lille";
+} else if (areal < 200) {
+  resultat = "Arealet er OK";
+} else {
+  resultat = "Arealet er for stort";
+}
+
 console.log(resultat);
