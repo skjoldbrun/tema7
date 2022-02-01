@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=, initial-scale=1.0" />
+    <title>HTML STRUKTUR</title>
+  </head>
+  <body>
+    <header>
+      <h1>Titel</h1>
+    </header>
+    <main>
+      <h2>Undertitel</h2>
+      <section>
+        <article id="article1">
+          <img src="https://placeimg.com/640/480/animals" />
+          <h3>Article 1</h3>
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellat
+            quis odio esse exercitationem corporis quasi eligendi cum? Doloribus
+            voluptas animi asperiores recusandae, ratione magnam laborum est
+            sunt inventore molestias sequi.
+          </p>
+        </article>
+        <article id="article2">
+          <img src="https://placeimg.com/640/480/nature" />
+          <h3>Article 2</h3>
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+            Consequuntur cum tenetur distinctio incidunt, autem facere unde
+            quasi quaerat nostrum nam illum non modi rerum dicta repellat
+            laboriosam molestias soluta ex!
+          </p>
+        </article>
+      </section>
+    </main>
+    <footer>
+      <p>This is a footer</p>
+    </footer>
+
+    <style>
+      body {
+        margin: 20px;
+      }
+
+      section {
+        display: flex;
+        flex-direction: row;
+
+        gap: auto;
+        max-width: 1000px;
+      }
+
+      header {
+        display: flex;
+        justify-content: center;
+        border-style: solid;
+        border-width: 3px;
+        border-color: hotpink;
+      }
+
+      #article1 {
+        border-style: solid;
+        border-width: 2px;
+      }
+
+      #article2 {
+        border-style: solid;
+        border-width: 2px;
+      }
+
+      footer {
+        display: flex;
+        justify-content: center;
+        border-style: solid;
+        border-width: 1px;
+        border-color: grey;
+        margin-top: 5px;
+      }
+    </style>
+  </body>
+</html>
