@@ -99,6 +99,12 @@
 
       //indsæt article i section
       mainSection.appendChild(newArticle);
+
+      //   document.addEventListener("load", start);
+
+      //   function start() {
+      //     console.log(DOMContetLoaded);
+      //   }
     </script>
   </body>
 </html>
