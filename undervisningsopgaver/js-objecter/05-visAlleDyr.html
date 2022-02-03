@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JS OBJECTER</title>
+  </head>
+  <body>
+    <!-- <article id="person">
+      <h3></h3>
+      <p></p>
+      <img src="" alt="" />
+    </article> -->
+
+    <section id="liste"></section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", start);
+
+      let object = [
+        {
+          navn: "frø",
+          type: "amfibie",
+          levested: "sø",
+          billede: "http://mabe-kea.dk/E19/pics/frog.png",
+        },
+        {
+          navn: "gris",
+          type: "pattedyr",
+          levested: "svinefarm",
+          billede: "http://mabe-kea.dk/E19/pics/pig.png",
+        },
+        {
+          navn: "ræv",
+          type: "pattedyr",
+          levested: "svinefarm",
+          billede: "http://mabe-kea.dk/E19/pics/fox.png",
+        },
+        {
+          navn: "sild",
+          type: "fisk",
+          levested: "havet",
+          billede: "http://mabe-kea.dk/E19/pics/sild.jpg",
+        },
+        {
+          navn: "krokodille",
+          type: "krybdyr",
+          levested: "jungle",
+          billede: "http://mabe-kea.dk/E19/pics/kroko.jpg",
+        },
+      ];
+
+      function start() {
+        console.log(start);
+      }
+      console.log(object);
+
+      const listevisning = document.querySelector("#liste");
+
+      object.forEach((dyr) => {
+        listevisning.innerHTML += `<p>${dyr.navn}, ${dyr.type}, fra ${dyr.levested}</p>`;
+      });
+
+      //   const destination = document.querySelector("#person");
+
+      //   const fuldeNavn = `${dyr.navn} ${dyr.type}`;
+
+      //   destination.querySelector("h3").textContent = fuldeNavn;
+      //   destination.querySelector("p").textContent = dyr.levested;
+      //   destination.querySelector("img").src = dyr.billede;
+    </script>
+  </body>
+</html>

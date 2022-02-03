@@ -55,7 +55,7 @@
       <h2>Undertitel</h2>
       <section>
         <article id="article1">
-          <img src="https://placeimg.com/640/480/animals" />
+          <img id="pic1" src="https://placeimg.com/640/480/animals" />
           <h3>Article 1</h3>
           <p>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellat
@@ -80,6 +80,12 @@
       <p>This is a footer</p>
     </footer>
     <script>
+      window.addEventListener("load", start);
+
+      function start() {
+        console.log("sidenVises");
+      }
+
       let mainSection = document.querySelector("section");
 
       //Lav et nyt article element
@@ -100,11 +106,17 @@
       //indsæt article i section
       mainSection.appendChild(newArticle);
 
-      //   document.addEventListener("load", start);
+      //NYT BILLEDE??? VED KLIK
+      const pic = document.querySelector("#pic1");
 
-      //   function start() {
-      //     console.log(DOMContetLoaded);
-      //   }
+      document;
+      pic.addEventListener("click", udskiftBillede);
+
+      function udskiftBillede() {
+        pic.createElement("img");
+        pic.scr = "https://placeimg.com/640/480/tech";
+        pic.alt = "dette er et nyt billede";
+      }
     </script>
   </body>
 </html>
