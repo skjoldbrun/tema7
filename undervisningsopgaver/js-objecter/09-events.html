@@ -136,8 +136,8 @@
         let klon = temp.cloneNode(true).content;
 
         klon.querySelector("img").src = enFilm.url;
-        klon.querySelector("h2").textConten = enFilm.titel;
-        klon.querySelector("h3").textConten = enFilm.instruktør;
+        klon.querySelector("h2").textContent = enFilm.titel;
+        klon.querySelector("h3").textContent = enFilm.instruktør;
 
         klon.querySelector("p:first-of-type").innerHTML += enFilm.land;
         klon.querySelector("p:nth-of-type(2)").innerHTML += enFilm.varighed;

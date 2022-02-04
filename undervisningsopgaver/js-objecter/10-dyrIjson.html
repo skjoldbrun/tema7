@@ -59,6 +59,7 @@
 
         json.forEach((dyr) => {
           let klon = skabelon.cloneNode(true).content;
+
           klon.querySelector("h3").textConten = dyr.navn;
           klon.querySelector("img").src = dyr.billede;
           klon.querySelector("p:first-of-type").innerHTML += dyr.type;
