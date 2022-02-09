@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PERSONGALLERI</title>
+
+    <style>
+      main {
+        margin: 5px;
+      }
+      section {
+        display: grid;
+
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+
+        gap: 30px;
+      }
+
+      article {
+        display: block;
+
+        border: 1px solid orange;
+
+        padding: 10px;
+      }
+      img {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section></section>
+
+      <template>
+        <article>
+          <img src="" alt="" class="billede" />
+          <h2 class="navn"></h2>
+          <p class="titel"></p>
+          <p class="fødselsdag"></p>
+        </article>
+      </template>
+    </main>
+
+    <script>
+      const url = "https://tema7database-2ff3.restdb.io/rest/medlemmer";
+
+      let personer;
+      let filter = "ja";
+
+      const option = {
+        headers: {
+          "x-apikey": "61fcf7e43f215f310a37be54",
+        },
+      };
+
+      async function hentData() {
+        const respons = await fetch(url, option);
+        const personer = await respons.json();
+        vis(personer);
+      }
+
+      const container = document.querySelector("section");
+      const template = document.querySelector("template");
+
+      function vis(personer) {
+        console.log(personer);
+
+        personer.forEach((person) => {
+          if (filter == person.troende) {
+            const klon = template.cloneNode(true).content;
+            klon.querySelector(".billede").src =
+              "faces/" + person.profilbillede;
+            klon.querySelector(".navn").textContent = person.fornavn;
+            klon.querySelector(".titel").textContent = person.efternavn;
+            klon.querySelector(".fødselsdag").textContent = person.email;
+            container.appendChild(klon);
+          }
+        });
+      }
+
+      hentData();
+    </script>
+  </body>
+</html>

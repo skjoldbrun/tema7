@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PERSONGALLERI</title>
+
+    <style>
+      main {
+        margin: 5px;
+      }
+      section {
+        display: grid;
+
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+
+        gap: 30px;
+      }
+
+      article {
+        display: block;
+
+        border: 1px solid orange;
+
+        padding: 10px;
+      }
+      img {
+        width: 100%;
+      }
+
+      h1 {
+        display: flex;
+        justify-content: center;
+      }
+
+      nav {
+        display: flex;
+        justify-content: center;
+        gap: 0.2rem;
+        padding: 0.2rem;
+        margin: 0.2rem;
+      }
+
+      .valgt {
+        background-color: orange;
+      }
+
+      #modal {
+        display: none;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.192);
+        top: 0;
+      }
+
+      #modal article {
+        max-width: 900px;
+        margin: 2em auto;
+        background-color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav>
+        <button data-troende="alle" class="valgt">ALLE</button>
+        <button data-troende="ja">JA</button>
+        <button data-troende="nej">NEJ</button>
+        <button data-troende="tvivler">TVIVLER</button>
+      </nav>
+      <h1>Alle</h1>
+
+      <aside id="modal">
+        <article>
+          <img src="" alt="" class="billede" />
+          <h2 class="navn"></h2>
+          <p class="titel"></p>
+          <p class="fødselsdag"></p>
+        </article>
+      </aside>
+      <section></section>
+
+      <template>
+        <article>
+          <img src="" alt="" class="billede" />
+          <h2 class="navn"></h2>
+          <p class="titel"></p>
+          <p class="fødselsdag"></p>
+        </article>
+      </template>
+    </main>
+
+    <script>
+      const url = "https://tema7database-2ff3.restdb.io/rest/medlemmer";
+      const option = {
+        headers: {
+          "x-apikey": "61fcf7e43f215f310a37be54",
+        },
+      };
+
+      const header = document.querySelector("h1");
+      const modal = document.querySelector("#modal");
+
+      document.addEventListener("DOMContentLoaded", start);
+      let personer;
+      let filter = "alle";
+
+      //første funktion der kaldes efter DOM er loaded
+
+      function start() {
+        const filterKnapper = document.querySelectorAll("nav button");
+        filterKnapper.forEach((knap) =>
+          knap.addEventListener("click", filtrerPersoner)
+        );
+      }
+
+      //   hentData();
+
+      function filtrerPersoner() {
+        filter = this.dataset.troende;
+        document.querySelector(".valgt").classList.remove("valgt");
+        this.classList.add("valgt");
+        visPersoner();
+        header.textContent = this.textContent;
+      }
+
+      async function hentData() {
+        const respons = await fetch(url, option);
+        personer = await respons.json();
+        visPersoner();
+      }
+
+      //funktion der viser personer i liste view
+      function visPersoner() {
+        // console.log(personer);
+        //konstanter for container for hvad personer puttes i
+        const container = document.querySelector("section");
+        const template = document.querySelector("template");
+        //Ryd container inden nyt loop
+        container.textContent = "";
+
+        personer.forEach((person) => {
+          //loop igennem json (personer)
+          //tjek hvilken tro personen har og sammenlign med aktuelt filter eller vis alle, hvis filter værdien har "alle"
+
+          if (filter == person.troende || filter == "alle") {
+            console.log("Troende", person.troende);
+            const klon = template.cloneNode(true).content;
+            klon.querySelector(".billede").src =
+              "faces/" + person.profilbillede;
+            klon.querySelector(".navn").textContent = person.fornavn;
+            klon.querySelector(".titel").textContent = person.efternavn;
+            klon.querySelector(".fødselsdag").textContent = person.email;
+            klon
+              .querySelector("article")
+              .addEventListener("click", () => visDetaljer(person));
+            container.appendChild(klon);
+          }
+        });
+      }
+
+      function visDetaljer(person) {
+        console.log(person);
+        modal.querySelector(".billede").src = "faces/" + person.profilbillede;
+        modal.querySelector("h2").textContent = person.fornavn;
+        modal.querySelector(".titel").textContent = person.efternavn;
+        modal.querySelector(".fødselsdag").textContent = person.email;
+        modal.style.display = "block";
+      }
+
+      modal.addEventListener("click", () => (modal.style.display = "none"));
+      hentData();
+    </script>
+  </body>
+</html>

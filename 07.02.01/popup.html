@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BISTRO BABUSHKA</title>
+    <style>
+      body {
+        background-color: #f2ca7e;
+        color: #f8518e;
+      }
+
+      main {
+        margin: 5px;
+      }
+      section {
+        display: grid;
+
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+
+        gap: 30px;
+      }
+
+      article {
+        display: block;
+
+        border: 5px solid #73d9a9;
+
+        padding: 10px;
+      }
+      img {
+        width: 100%;
+        object-fit: cover;
+        aspect-ratio: 1/1;
+      }
+
+      h1 {
+        display: flex;
+        justify-content: center;
+      }
+
+      nav {
+        display: flex;
+        justify-content: center;
+        gap: 0.2rem;
+        padding: 0.2rem;
+        margin: 0.2rem;
+      }
+
+      .valgt {
+        background-color: orange;
+      }
+
+      #modal {
+        display: none;
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        background-color: rgba(0, 0, 0, 0.192);
+        top: 0;
+      }
+
+      #modal article {
+        max-width: 900px;
+        margin: 2em auto;
+        background-color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <nav>
+        <button data-kategori="alle" class="valgt">ALLE</button>
+        <button data-kategori="forretter">FORRETTER</button>
+        <button data-kategori="hovedretter">HOVEDRETTER</button>
+        <button data-kategori="drikkevarer">DRIKKEVARER</button>
+        <button data-kategori="sideorders">SIDE ORDERS</button>
+      </nav>
+      <h1>Alle</h1>
+
+      <aside id="modal">
+        <article>
+          <img src="" alt="" class="billede" />
+          <h2 class="navn"></h2>
+          <p class="kortbeskrivelse"></p>
+          <p class="pris"></p>
+        </article>
+      </aside>
+      <section></section>
+
+      <template>
+        <article>
+          <img src="" alt="" class="billede" />
+          <h2 class="navn"></h2>
+          <p class="kortbeskrivelse"></p>
+          <p class="pris"></p>
+        </article>
+      </template>
+    </main>
+
+    <script>
+      const url = "https://babushka-dd8a.restdb.io/rest/menu";
+      const option = {
+        headers: {
+          "x-apikey": "600ec2fb1346a1524ff12de4",
+        },
+      };
+
+      const header = document.querySelector("h1");
+      const modal = document.querySelector("#modal");
+
+      let menu;
+      let filter = "alle";
+
+      document.addEventListener("DOMContentLoaded", start);
+
+      //første funktion der kaldes efter DOM er loaded
+
+      function start() {
+        const filterKnapper = document.querySelectorAll("nav button");
+        filterKnapper.forEach((knap) =>
+          knap.addEventListener("click", filtrerRetter)
+        );
+      }
+
+      function filtrerRetter() {
+        filter = this.dataset.troende;
+        document.querySelector(".valgt").classList.remove("valgt");
+        this.classList.add("valgt");
+        visRetter();
+        header.textContent = this.textContent;
+      }
+
+      async function hentData() {
+        const respons = await fetch(url, option);
+        menu = await respons.json();
+        visRetter();
+        console.log(menu);
+      }
+
+      //funktion der viser personer i liste view
+      function visRetter() {
+        // console.log(personer);
+        //konstanter for container for hvad personer puttes i
+        const container = document.querySelector("section");
+        const template = document.querySelector("template");
+        //Ryd container inden nyt loop
+        container.textContent = "";
+
+        menu.forEach((ret) => {
+          //loop igennem json (menu)
+
+          if (filter == ret.kategori || filter == "alle") {
+            console.log("Kategori", ret.kategori);
+
+            const klon = template.cloneNode(true).content;
+            klon.querySelector(
+              ".billede"
+            ).src = `medium/${ret.billednavn}-md.jpg`;
+            klon.querySelector(".navn").textContent = ret.navn;
+            klon.querySelector(".kortbeskrivelse").textContent =
+              ret.kortbeskrivelse;
+            klon.querySelector(".pris").textContent = `Pris: ${ret.pris} kr`;
+
+            //eventlistener som sender dig videre til et nyt vindue - du sender id'et med vha spørgsmålstegnet
+            klon.querySelector("article").addEventListener("click", () => {
+              location.href = `personliste-singleview.html?id=${ret._id}`;
+            });
+            container.appendChild(klon);
+          }
+        });
+      }
+
+      //   function visDetaljer(ret) {
+      //     console.log(ret);
+      //     modal.querySelector(".billede").src = `medium/${ret.billednavn}-md.jpg`;
+      //     modal.querySelector(".navn").textContent = ret.navn;
+      //     modal.querySelector(".pris").textContent = `Pris: ${ret.pris} kr`;
+
+      //     modal.style.display = "block";
+      //   }
+
+      modal.addEventListener("click", () => (modal.style.display = "none"));
+
+      hentData();
+    </script>
+  </body>
+</html>
