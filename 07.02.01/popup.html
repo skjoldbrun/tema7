@@ -5,71 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BISTRO BABUSHKA</title>
-    <style>
-      body {
-        background-color: #f2ca7e;
-        color: #f8518e;
-      }
-
-      main {
-        margin: 5px;
-      }
-      section {
-        display: grid;
-
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-
-        gap: 30px;
-      }
-
-      article {
-        display: block;
-
-        border: 5px solid #73d9a9;
-
-        padding: 10px;
-      }
-      img {
-        width: 100%;
-        object-fit: cover;
-        aspect-ratio: 1/1;
-      }
-
-      h1 {
-        display: flex;
-        justify-content: center;
-      }
-
-      nav {
-        display: flex;
-        justify-content: center;
-        gap: 0.2rem;
-        padding: 0.2rem;
-        margin: 0.2rem;
-      }
-
-      .valgt {
-        background-color: orange;
-      }
-
-      #modal {
-        display: none;
-        width: 100vw;
-        height: 100vh;
-        position: fixed;
-        background-color: rgba(0, 0, 0, 0.192);
-        top: 0;
-      }
-
-      #modal article {
-        max-width: 900px;
-        margin: 2em auto;
-        background-color: white;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comforter+Brush&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Devonshire&family=Londrina+Outline&family=Roboto+Slab:wght@100;200&family=Tangerine&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <main>
+      <h1>BISTRO BABUSHKA</h1>
+
       <nav>
         <button data-kategori="alle" class="valgt">ALLE</button>
         <button data-kategori="forretter">FORRETTER</button>
@@ -77,12 +22,11 @@
         <button data-kategori="drikkevarer">DRIKKEVARER</button>
         <button data-kategori="sideorders">SIDE ORDERS</button>
       </nav>
-      <h1>Alle</h1>
-
+      <h2>Alle</h2>
       <aside id="modal">
         <article>
           <img src="" alt="" class="billede" />
-          <h2 class="navn"></h2>
+          <h3 class="navn"></h3>
           <p class="kortbeskrivelse"></p>
           <p class="pris"></p>
         </article>
@@ -98,7 +42,24 @@
         </article>
       </template>
     </main>
+    <footer>
+      <p>
+        Adresse: <br />
+        Trondhjemsgade 3 <br />
+        2100 KBH Ø
+      </p>
 
+      <p>
+        Telefonnummer: <br />
+        93857394
+      </p>
+
+      <p>
+        Åbningstider: <br />
+        Mandag-fredag: 9-22 <br />
+        Lørdag-søndag: 9-24
+      </p>
+    </footer>
     <script>
       const url = "https://babushka-dd8a.restdb.io/rest/menu";
       const option = {
@@ -107,7 +68,7 @@
         },
       };
 
-      const header = document.querySelector("h1");
+      const header = document.querySelector("h2");
       const modal = document.querySelector("#modal");
 
       let menu;
@@ -125,7 +86,8 @@
       }
 
       function filtrerRetter() {
-        filter = this.dataset.troende;
+        console.log("filter");
+        filter = this.dataset.kategori;
         document.querySelector(".valgt").classList.remove("valgt");
         this.classList.add("valgt");
         visRetter();
@@ -142,7 +104,7 @@
       //funktion der viser personer i liste view
       function visRetter() {
         // console.log(personer);
-        //konstanter for container for hvad personer puttes i
+        //konstanter for container for hvad retterne puttes i
         const container = document.querySelector("section");
         const template = document.querySelector("template");
         //Ryd container inden nyt loop
@@ -181,7 +143,7 @@
       //     modal.style.display = "block";
       //   }
 
-      modal.addEventListener("click", () => (modal.style.display = "none"));
+      // modal.addEventListener("click", () => (modal.style.display = "none"));
 
       hentData();
     </script>

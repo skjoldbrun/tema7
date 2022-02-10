@@ -5,72 +5,57 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BISTRO BABUSHKA</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comforter+Brush&family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Devonshire&family=Londrina+Outline&family=Roboto+Slab:wght@100;200&family=Tangerine&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      main {
-        margin: 5px;
-      }
-      section {
-        display: grid;
-
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-
-        gap: 30px;
+      button {
+        margin: 10px;
       }
 
-      article {
-        display: block;
-
-        border: 1px solid orange;
-
-        padding: 10px;
-      }
       img {
-        width: 100%;
+        max-height: 50%;
       }
 
-      h1 {
-        display: flex;
-        justify-content: center;
-      }
-
-      nav {
-        display: flex;
-        justify-content: center;
-        gap: 0.2rem;
-        padding: 0.2rem;
-        margin: 0.2rem;
-      }
-
-      .valgt {
-        background-color: orange;
-      }
-
-      #modal {
-        display: none;
-        width: 100vw;
-        height: 100vh;
-        position: fixed;
-        background-color: rgba(0, 0, 0, 0.192);
-        top: 0;
-      }
-
-      #modal article {
-        max-width: 900px;
-        margin: 2em auto;
-        background-color: white;
+      @media only screen and (min-width: 900px) {
+        main {
+          margin-left: 30%;
+          margin-right: 30%;
+        }
       }
     </style>
   </head>
   <body>
+    <h1>BISTRO BABUSHKA</h1>
     <main>
       <button>TILBAGE</button>
-      <article>
+      <article id="singleview">
         <img src="" alt="" class="billede" />
         <h2 class="navn"></h2>
-        <p class="kortbeskrivelse"></p>
+        <p class="langbeskrivelse"></p>
         <p class="pris"></p>
       </article>
     </main>
+    <footer>
+      <p>
+        Adresse: <br />
+        Trondhjemsgade 3 <br />
+        2100 KBH Ø
+      </p>
+
+      <p>
+        Telefonnummer: <br />
+        93857394
+      </p>
+
+      <p>
+        Åbningstider: <br />
+        Mandag-fredag: 9-22 <br />
+        Lørdag-søndag: 9-24
+      </p>
+    </footer>
     <script>
       //En konstant der får java til at læse url'en og tjekke id'et
 
@@ -103,8 +88,8 @@
         document.querySelector(
           ".billede"
         ).src = `medium/${menu.billednavn}-md.jpg`;
-        document.querySelector(".kortbeskrivelse").textContent =
-          menu.kortbeskrivelse;
+        document.querySelector(".langbeskrivelse").textContent =
+          menu.langbeskrivelse;
         document.querySelector(".pris").textContent = `Pris: ${menu.pris} kr`;
       }
 
